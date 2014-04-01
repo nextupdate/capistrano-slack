@@ -31,20 +31,14 @@ module Capistrano
           end
 
           task :finished do
-            begin
-              return if slack_token.nil?
-              end_time = Time.now
-              start_time = fetch(:start_time)
-              elapsed = end_time.to_i - start_time.to_i
+            return if slack_token.nil?
+            end_time = Time.now
+            start_time = fetch(:start_time)
+            elapsed = end_time.to_i - start_time.to_i
 
-              announcement = "#{announced_deployer} deployed #{announced_application_name} successfully in #{elapsed} seconds."
+            announcement = "#{announced_deployer} deployed #{announced_application_name} successfully in #{elapsed} seconds."
 
-              post_slack_message(announcement)
-
-            rescue Faraday::Error::ParsingError
-              # FIXME deal with crazy color output instead of rescuing
-              # it's stuff like: ^[[0;33m and ^[[0m
-            end
+            post_slack_message(announcement)
           end
 
         end

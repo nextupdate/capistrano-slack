@@ -10,9 +10,8 @@ module Capistrano
 
         before 'deploy',            'slack:starting'
         before 'deploy:migrations', 'slack:starting'
-        before 'deploy:long',       'slack:starting'
         after  'deploy',            'slack:finished'
-        after  'deploy:long',       'slack:finished'
+        after  'deploy:migrations', 'slack:finished'
 
         set :deployer do
           ENV['GIT_AUTHOR_NAME'] || `git config user.name`.chomp

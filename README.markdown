@@ -7,7 +7,7 @@ Best way to install Capistrano Slack intergration is via Bundler.
 Add the following to your Gemfile, then run the `bundle` command to install the gem direct from the git repository
 
 ```
-gem 'capistrano-slack', :git => 'https://github.com/j-mcnally/capistrano-slack.git'
+gem 'capistrano-slack', :git => 'https://github.com/nextupdate/capistrano-slack.git'
 ```
 
 Once installed you can use the settings below in your Capistrano deploy.rb to configure Slack.

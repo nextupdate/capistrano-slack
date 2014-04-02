@@ -66,7 +66,7 @@ module Capistrano
       @branch ||= fetch(:branch, "")
     end
 
-    def post_slack_message(message, attachments=nil)
+    def post_slack_message(message, attachments=[])
       # Parse the API url and create an SSL connection
       uri = URI.parse("https://#{slack_subdomain}.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
       http = Net::HTTP.new(uri.host, uri.port)
@@ -81,7 +81,6 @@ module Capistrano
         "icon_emoji" => slack_emoji,
         "attachments" => attachments
       }
-      # payload["attachments"] = attachments if attachments.present?
 
       # Create the post request and setup the form data
       request = Net::HTTP::Post.new(uri.request_uri)

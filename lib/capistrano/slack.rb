@@ -173,11 +173,15 @@ module Capistrano
     end
 
     def slack_application
-      @slack_application ||= fetch(:slack_application) || application
+      @slack_application ||= fetch(:slack_application, application)
+    end
+
+    def slack_username
+      @slack_username ||= fetch(:slack_username, "deploybot")
     end
 
     def slack_emoji
-      @slack_emoji ||= fetch(:slack_emoji) || ":ghost:"
+      @slack_emoji ||= fetch(:slack_emoji, ":ghost:")
     end
 
     def slack_room
@@ -190,10 +194,6 @@ module Capistrano
 
     def slack_token
       @slack_token ||= fetch(:slack_token)
-    end
-
-    def slack_username
-      @slack_username ||= fetch(:slack_username) || "deploybot"
     end
 
   end

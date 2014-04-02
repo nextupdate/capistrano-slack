@@ -36,8 +36,8 @@ module Capistrano
             start_time = fetch(:start_time)
             elapsed = end_time.to_i - start_time.to_i
 
-            announcement = "#{announced_deployer} deployed #{announced_application_name} successfully in #{elapsed} seconds."
-
+            announcement = "#{announced_deployer} successfully deployed #{announced_application_name} in #{elapsed} seconds."
+            
             post_slack_message(announcement, smoke_test_results)
           end
 

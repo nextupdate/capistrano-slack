@@ -188,7 +188,7 @@ module Capistrano
     end
 
     def slack_emoji
-      @slack_emoji ||= fetch(:slack_emoji, ":ghost:")
+      @slack_emoji ||= fetch(:slack_emoji, ":cloud:")
     end
 
     def slack_room

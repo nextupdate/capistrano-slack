@@ -20,13 +20,13 @@ require 'capistrano/slack'
 
 # required
 set :slack_token, "webhook_token" # comes from inbound webhook integration
-set :slack_room, "#general"
-set :slack_subdomain, "kohactive" # if your subdomain is kohactive.slack.com
+set :slack_room, "#general" # the room to send the message to
+set :slack_subdomain, "example" # if your subdomain is example.slack.com
 
 # optional
-set :slack_application, "Rocketman"
-set :slack_username, "Elton John"
-set :slack_emoji, ":rocket:"
+set :slack_application, "Application Name" # override Capistrano `application`
+set :slack_username, "Deploy Bot" # displayed as name of message sender
+set :slack_emoji, ":cloud:" # will be used as the avatar for the message
 ```
 
 You can obtain your `webhook_token` from the integrations section of the team page in Slack.  

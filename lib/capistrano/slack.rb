@@ -108,7 +108,7 @@ module Capistrano
         expected_status_code = site[:expected_status_code]
 
         # Test the site and get a pass/fail value
-        status_code = `curl#{basic_auth} -s -w "%{http_code}" https://nextupdate.#{domain}/login -o /dev/null`
+        status_code = `curl#{basic_auth_option} -s -w "%{http_code}" https://nextupdate.#{domain}/login -o /dev/null`
 
         # Let's turn the status code into a friendly message
         if status_code == expected_status_code
@@ -159,8 +159,16 @@ module Capistrano
       @run_smoke_test ||= fetch(:run_smoke_test, false)
     end
 
-    def basic_auth
-      @basic_auth ||= fetch(:smoke_test_auth, "")
+    def basic_auth_option
+      @basic_auth_value ||= if basic_auth_value.empty?
+        ""
+      else
+        " --user #{basic_auth_value}"
+      end
+    end
+
+    def basic_auth_value
+      @basic_auth_value ||= fetch(:smoke_test_auth, "")
     end
 
     def real_revision

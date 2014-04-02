@@ -79,5 +79,5 @@ set :urls_to_test, endpoints
 If you have an environment that's behind basic auth, you can use the `smoke_test_auth` variable to provide the relevant values for the `curl` request.
 
 ```ruby
-set :smoke_test_auth, " --user username:password"
+set :smoke_test_auth, "username:password"
 ```

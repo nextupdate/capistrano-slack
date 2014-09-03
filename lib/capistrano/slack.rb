@@ -107,7 +107,7 @@ module Capistrano
         expected_status_code = site[:expected_status_code]
 
         # Test the site and get a pass/fail value
-        status_code = `curl#{basic_auth_option} -s -w "%{http_code}" https://nextupdate.#{domain}/login -o /dev/null`
+        status_code = `curl#{basic_auth_option} -s -w "%{http_code}" "#{url}" -o /dev/null`
 
         # Let's turn the status code into a friendly message
         if status_code == expected_status_code

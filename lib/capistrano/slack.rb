@@ -110,7 +110,7 @@ module Capistrano
         status_code = `curl#{basic_auth_option} -s -w "%{http_code}" "#{url}" -o /dev/null`
 
         # Let's turn the status code into a friendly message
-        if status_code == expected_status_code
+        if status_code.to_s == expected_status_code.to_s
           color = 'good'
           result_message = "Passed with status code #{status_code}"
         else
@@ -124,7 +124,7 @@ module Capistrano
           "fields" => [
             {
               "title" => "#{name}",
-              "value" => "<#{url}>",
+              "value" => "#{url}",
               "short" => false
             },
             {

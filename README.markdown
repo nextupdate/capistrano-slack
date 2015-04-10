@@ -24,6 +24,7 @@ set :slack_room, "#general" # the room to send the message to
 set :slack_subdomain, "example" # if your subdomain is example.slack.com
 
 # optional
+set :slack_webhook_url, "https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX" # overides the  specified token and subdomain to use the specified webhook url.
 set :slack_application, "Application Name" # override Capistrano `application`
 set :slack_username, "Deploy Bot" # displayed as name of message sender
 set :slack_emoji, ":cloud:" # will be used as the avatar for the message

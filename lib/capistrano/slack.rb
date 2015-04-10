@@ -21,7 +21,7 @@ module Capistrano
         namespace :slack do
 
           task :starting do
-            return if slack_token.nil?
+            return if slack_token.nil? and slack_webhook_url.nil?
 
             announcement = "#{announced_deployer} is deploying #{announced_application_name} to #{announced_stage}"
 
@@ -31,7 +31,7 @@ module Capistrano
           end
 
           task :finished do
-            return if slack_token.nil?
+            return if slack_token.nil? and slack_webhook_url.nil?
             end_time = Time.now
             start_time = fetch(:start_time)
             elapsed = end_time.to_i - start_time.to_i
@@ -48,9 +48,10 @@ module Capistrano
 
     def announced_application_name
       @announced_application_name ||= "".tap do |output|
-        output << slack_application
-        output << " #{branch}" if branch
-        output << " (#{short_revision})" if short_revision
+        output << ' *' + slack_application + '* '
+        output << `git log -1 --format=format:"%s"`
+        output << " (#{branch})" if branch
+        output << ":(#{short_revision})" if short_revision
       end
     end
 
@@ -68,7 +69,11 @@ module Capistrano
 
     def post_slack_message(message, attachments=[])
       # Parse the API url and create an SSL connection
-      uri = URI.parse("https://#{slack_subdomain}.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
+      if slack_webhook_url.nil?
+        uri = URI.parse("https://#{slack_subdomain}.slack.com/services/hooks/incoming-webhook?token=#{slack_token}")
+      else
+        uri = URI.parse(slack_webhook_url)
+      end
       http = Net::HTTP.new(uri.host, uri.port)
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE

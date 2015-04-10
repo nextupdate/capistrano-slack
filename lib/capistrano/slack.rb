@@ -48,9 +48,10 @@ module Capistrano
 
     def announced_application_name
       @announced_application_name ||= "".tap do |output|
-        output << slack_application
-        output << " #{branch}" if branch
-        output << " (#{short_revision})" if short_revision
+        output << ' *' + slack_application + '* '
+        output << `git log -1 --format=format:"%s"`
+        output << " (#{branch})" if branch
+        output << ":(#{short_revision})" if short_revision
       end
     end
 
